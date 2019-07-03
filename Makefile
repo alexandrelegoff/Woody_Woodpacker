@@ -8,7 +8,7 @@ SRC_DIR =		src/
 OBJ_DIR =		obj/
 LIB_DIR =		libft/
 
-SRC		=		main.c woody.c load_file.c error.c elf64.c swap_bits.c write_file.c find_gap.c
+SRC		=		main.c woody.c load_file.c error.c elf64.c swap_bits.c write_file.c sections.c
 OBJ		=		$(addprefix $(OBJ_DIR),$(SRC:.c=.o))
 LIB		=		libft/libft.a
 
@@ -20,7 +20,7 @@ $(NAME): $(OBJ) $(LIBFT)
 	@echo "Done."
 
 
-$(OBJ): $(OBJ_DIR)%.o: $(SRC_DIR)/%.c
+$(OBJ): $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
 $(LIBFT):
