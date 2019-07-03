@@ -1,7 +1,6 @@
 section .text
-	global _start
-
-_start:
+	global _main
+_main:
 		mov rax,0x2000004
 		mov rdi,1
 		lea rsi,[rel msg]

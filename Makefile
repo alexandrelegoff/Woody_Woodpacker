@@ -1,7 +1,7 @@
 NAME	=		woody_woodpacker
 
 CC 		=		gcc
-CFLAGS	= 		-g -Wall -Werror -Wextra
+CFLAGS	= 		-Wall -Werror -Wextra
 INC		=		-I ./inc -I libft/
 
 SRC_DIR =		src/

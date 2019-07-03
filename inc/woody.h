@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 20:07:29 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/02 21:11:18 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/02 22:10:21 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@
 
 typedef struct		s_file
 {
-	void			*ptr_file;
-	void			*ptr_loader;
 	off_t			size_file;
 	off_t			size_loader;
+	void			*ptr_file;
+	void			*ptr_loader;
 }					t_file;
 
 typedef struct		s_elf64
