@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 20:07:29 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/02 22:10:21 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/03 13:54:25 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,11 @@ typedef struct		s_woody
 }					t_woody;
 
 int					woody_woodpacker(char *file);
-int					load_file(char *filename, t_file *file);
+int					load_file(char *filename, void **ptr, off_t *size);
 t_elf64				init_elf64(t_file *file);
 int					verify_info(Elf64_Ehdr *header);
 uint64_t			swap_64(uint64_t value);
+uint32_t			swap_32(uint32_t value);
 int					ret_error(char *message);
 int					write_file(t_file *file, t_elf64 *elf64);
 Elf64_Phdr			*find_gap(t_file *file, t_elf64 *elf64);
