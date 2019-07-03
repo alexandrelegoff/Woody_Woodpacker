@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 20:07:29 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/02 18:57:01 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/02 21:11:18 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/stat.h>
 # include <elf.h>
 
-# define KEY_MASK 0x7
+# define PAYLOAD "src/payload"
 # define FILE "woody"
 # define USAGE "usage: ./woody_woodpacker <filename>\n"
 # define OPEN "Couldn't open the file"
@@ -37,8 +37,10 @@
 
 typedef struct		s_file
 {
-	void			*ptr;
-	off_t			size;
+	void			*ptr_file;
+	void			*ptr_loader;
+	off_t			size_file;
+	off_t			size_loader;
 }					t_file;
 
 typedef struct		s_elf64
@@ -52,6 +54,7 @@ typedef struct		s_elf64
 typedef struct		s_woody
 {
 	Elf64_Phdr		*text_segment;
+	Elf64_Shdr		*text_section;
 }					t_woody;
 
 int					woody_woodpacker(char *file);
@@ -62,5 +65,6 @@ uint64_t			swap_64(uint64_t value);
 int					ret_error(char *message);
 int					write_file(t_file *file, t_elf64 *elf64);
 Elf64_Phdr			*find_gap(t_file *file, t_elf64 *elf64);
+Elf64_Shdr			*find_section(t_elf64 *elf64, char *name);
 
 #endif
