@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_file.c                                        :+:      :+:    :+:   */
+/*   find_gap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/30 20:29:12 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/02 17:02:11 by ale-goff         ###   ########.fr       */
+/*   Created: 2019/07/02 18:53:55 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/07/02 19:12:49 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <woody.h>
 
-int			load_file(char *filename, t_file *file)
+Elf64_Phdr		*find_gap(t_file *file, t_elf64 *elf64)
 {
-	int				fd;
-	struct stat		statbuf;
+	int				i;
+	Elf64_Phdr		*text;
 
-	if ((fd = open(filename, O_RDONLY)) == -1)
-		return (ret_error(OPEN));
-	if ((fstat(fd, &statbuf)) == -1)
-		return (ret_error(STAT));
-	file->size = statbuf.st_size;
-	if ((file->ptr = mmap(0, file->size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
-		return (ret_error(MMAP));
-	return (EXIT_SUCCESS);
+	i = -1;
+	text = NULL;
+	(void)file;
+	while (++i < elf64->ehdr->e_phnum)
+	{
+		if (elf64->phdr->p_type == PT_LOAD && elf64->phdr->p_flags & 0x011)
+		{
+			printf("+ Found .text segment (#%d)\n", i);
+			text = elf64->phdr;
+		}
+		elf64->phdr = (Elf64_Phdr *)((char *)elf64->phdr + elf64->ehdr->e_phentsize);
+	}
+	return (text);
 }

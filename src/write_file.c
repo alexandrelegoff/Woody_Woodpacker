@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_file.c                                        :+:      :+:    :+:   */
+/*   write_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/30 20:29:12 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/02 17:02:11 by ale-goff         ###   ########.fr       */
+/*   Created: 2019/07/02 16:31:38 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/07/02 16:54:20 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <woody.h>
 
-int			load_file(char *filename, t_file *file)
+int			write_file(t_file *file, t_elf64 *elf64)
 {
-	int				fd;
-	struct stat		statbuf;
+	int		fd;
+	char	*content;
 
-	if ((fd = open(filename, O_RDONLY)) == -1)
+	(void)file;
+	if ((fd = open(FILE, O_RDWR | O_TRUNC | O_CREAT, 0755)) == -1)
 		return (ret_error(OPEN));
-	if ((fstat(fd, &statbuf)) == -1)
-		return (ret_error(STAT));
-	file->size = statbuf.st_size;
-	if ((file->ptr = mmap(0, file->size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
-		return (ret_error(MMAP));
+	content = (void *)elf64->ehdr;
+	write(fd, content, SIZE_HEADER);
+	close(fd);
 	return (EXIT_SUCCESS);
 }
