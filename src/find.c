@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sections.c                                         :+:      :+:    :+:   */
+/*   find.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 18:53:55 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/02 21:51:29 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/02 22:26:02 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ Elf64_Phdr		*find_gap(t_file *file, t_elf64 *elf64)
 	text_seg = &elf64->phdr[0];
 	while (++i < elf64->ehdr->e_phnum)
 	{
-		printf("%llx\n", elf64->phdr[i].p_align);
+		if (elf64->phdr[i].p_type == PT_LOAD && elf64->phdr[i].p_flags & (PF_W | PF_X))
+			printf("Find LOAD segment at address %llx\n", elf64->phdr[i].p_align);
 	}
 	return (text_seg);
 }
