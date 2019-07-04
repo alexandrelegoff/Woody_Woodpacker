@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 20:07:29 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/03 19:24:44 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/03 19:48:49 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_elf64
 	Elf64_Ehdr		*ehdr;
 	Elf64_Shdr		*shdr;
 	Elf64_Phdr		*phdr;
+	Elf64_Addr		entry_p;
 	char			*strtable;
 }					t_elf64;
 
