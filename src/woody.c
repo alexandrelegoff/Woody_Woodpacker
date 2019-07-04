@@ -6,17 +6,19 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 20:08:31 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/03 20:32:51 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/03 21:27:26 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <woody.h>
 
 static char g_mov[] = {
-	0xb8, 0x01, 0x00, 0x00, 0x00, 0xbf, 0x01, 0x00,
-	0x00, 0x00, 0x48, 0x8d, 0x35, 0x0f, 0x00, 0x00,
-	0x00, 0xba, 0x10, 0x00, 0x00, 0x00, 0x0f, 0x05,
-	0xb8, 0x11, 0x11, 0x11, 0x11, 0xff, 0xe0
+	0x50, 0x57, 0x56, 0x52, 0xb8, 0x01, 0x00, 0x00,
+	0x00, 0xbf, 0x01, 0x00, 0x00, 0x00, 0x48, 0x8d,
+	0x35, 0x1b, 0x00, 0x00, 0x00, 0xba, 0x0f, 0x00,
+	0x00, 0x00, 0x0f, 0x05, 0x5a, 0x5e, 0x5f, 0x58,
+	0x48, 0xb8, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11,
+	0x11, 0x11
 };
 
 static int		launch_process(t_elf64 *elf64, t_file *file, t_woody *woody)
@@ -30,7 +32,7 @@ static int		launch_process(t_elf64 *elf64, t_file *file, t_woody *woody)
 	memmove(file->ptr_file + woody->text_end, g_mov, 31);
 	elf64->ehdr->e_entry = (Elf64_Addr)woody->text_segment->p_vaddr +
 	woody->text_end;
-	find_mem_substitution(file->ptr_file + woody->text_end, 31, 0x11111111, elf64->entry_p);
+	find_mem_substitution(file->ptr_file + woody->text_end, 31, 0x1111111111111111, elf64->entry_p);
 	return (EXIT_SUCCESS);
 }
 
