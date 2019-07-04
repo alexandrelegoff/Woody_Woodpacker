@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 20:08:31 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/03 16:28:41 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/03 19:10:15 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int				woody_woodpacker(char *filename)
 	if ((woody.data_section = find_section(&elf64, ".data")) == NULL)
 		return (ret_error(NO_DATA));
 	if ((woody.text_segment = find_gap(&file, &elf64, &woody)) == NULL)
-		return (EXIT_FAILURE);
+		return (ret_error(NO_SPACE));
 	if ((woody.text_section = find_section(&elf64, ".text")) == NULL)
 		return (ret_error(NO_TEXT));
-	memmove(file.ptr_file + woody.text_end, file.ptr_file + woody.text_section->sh_offset, woody.text_section->sh_size);
-	printf("+ Payload .text section found at %llx (%llx bytes)\n", woody.text_section->sh_offset, woody.text_section->sh_size);
-	printf("text_end = 0x%x\n", woody.text_end);
-	printf("0x%x\n", woody.gap);
+	if (woody.gap < 31)
+		return (ret_error(NO_SPACE));
+	memmove(file.ptr_file + woody.text_end, g_mov, 31);
+	elf64.ehdr->e_entry = (Elf64_Addr)(file.ptr_file + woody.text_end);
 	write_file(&file, &elf64);
 	return (EXIT_SUCCESS);
 }
