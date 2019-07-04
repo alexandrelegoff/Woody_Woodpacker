@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 20:07:29 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/03 19:48:49 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/03 20:25:38 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int					ret_error(char *message);
 int					write_file(t_file *file, t_elf64 *elf64);
 Elf64_Phdr			*find_gap(t_file *file, t_elf64 *elf64, t_woody *woody);
 Elf64_Shdr			*find_section(t_elf64 *elf64, char *name);
+int					find_mem_substitution(void *ptr, int len, long pat, long val);
 
 #endif

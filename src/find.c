@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 18:53:55 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/03 19:52:49 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/03 20:31:17 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,29 @@ static int		find_index_segment_text(t_elf64 *elf64)
 			return (i);
 	}
 	return (-1);
+}
+
+int				find_mem_substitution(void *ptr, int len, long pat, long val)
+{
+	unsigned char	*p;
+	long			v;
+	int				i;
+	int				r;
+
+	p = (unsigned char *)ptr;
+	i = -1;
+	while (++i < len)
+	{
+		v = *((long *)(p + i));
+		r = v ^ pat;
+		if (r == 0)
+		{
+			printf("+ Pattern %lx found at offset %d -> %lx\n", pat, i, val);
+			*((long *)(p + i)) = val;
+			return (0);
+		}
+	}
+	return (1);
 }
 
 Elf64_Phdr		*find_gap(t_file *file, t_elf64 *elf64, t_woody *woody)

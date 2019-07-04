@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 20:08:31 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/03 19:45:39 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/03 20:32:51 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int		launch_process(t_elf64 *elf64, t_file *file, t_woody *woody)
 	memmove(file->ptr_file + woody->text_end, g_mov, 31);
 	elf64->ehdr->e_entry = (Elf64_Addr)woody->text_segment->p_vaddr +
 	woody->text_end;
+	find_mem_substitution(file->ptr_file + woody->text_end, 31, 0x11111111, elf64->entry_p);
 	return (EXIT_SUCCESS);
 }
 
