@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 20:07:29 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/03 18:35:30 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/03 19:24:44 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@
 
 # define SIZE_HEADER sizeof(Elf64_Ehdr)
 
-static char g_mov[] = {
-	0xb8, 0x01, 0x00, 0x00, 0x00, 0xbf, 0x01, 0x00,
-	0x00, 0x00, 0x48, 0x8d ,0x35, 0x0f, 0x00, 0x00,
-	0x00, 0xba, 0x10, 0x00, 0x00, 0x00, 0x0f, 0x05,
-	0xb8, 0x11, 0x11, 0x11, 0x11, 0xff, 0xe0
-};
 
 typedef struct		s_file
 {
