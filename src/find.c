@@ -6,21 +6,29 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 18:53:55 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/03 22:09:59 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/04 21:15:09 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <woody.h>
 
-Elf64_Shdr		*find_section(t_elf64 *elf64, char *name)
+Elf64_Shdr		*find_section(void *data, char *name)
 {
 	int			i;
+	Elf64_Ehdr	*ehdr;
+	Elf64_Shdr	*shdr;
+	Elf64_Shdr	*sh_strtab;
+	const char	*sh_strtab_p;
 
 	i = -1;
-	while (++i < elf64->ehdr->e_shnum)
+	ehdr = (Elf64_Ehdr *)data;
+	shdr = (Elf64_Shdr *)(data + ehdr->e_shoff);
+	sh_strtab = &shdr[ehdr->e_shstrndx];
+	sh_strtab_p = data + sh_strtab->sh_offset;
+	while (++i < ehdr->e_shnum)
 	{
-		if (!ft_strcmp(&elf64->strtable[elf64->shdr[i].sh_name], name))
-			return (&elf64->shdr[i]);
+		if (!ft_strcmp(sh_strtab_p + shdr[i].sh_name, name))
+			return (&shdr[i]);
 	}
 	return (NULL);
 }
