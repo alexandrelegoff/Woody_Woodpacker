@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 18:53:55 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/04 21:15:09 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/04 23:35:03 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int		find_index_segment_text(t_elf64 *elf64)
 	return (-1);
 }
 
-int				find_mem_substitution(void *ptr, int len, long pat, long val)
+int				find_mem_substitution(void *ptr, int len, long pat, unsigned long val)
 {
 	unsigned char	*p;
 	long			v;
@@ -64,6 +64,7 @@ int				find_mem_substitution(void *ptr, int len, long pat, long val)
 		{
 			printf("+ Pattern %lx found at offset %d -> %lx\n", pat, i, val);
 			*((long *)(p + i)) = val;
+			// printf("%lx\n", len + val * -1);
 			return (0);
 		}
 	}
