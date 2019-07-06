@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 21:24:54 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/06 13:57:19 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:00:03 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,5 @@ t_elf64		init_elf64(t_file *file)
 	elf64.entry_p = elf64.ehdr->e_entry;
 	elf64.shdr = (Elf64_Shdr *)(file->ptr_file + elf64.ehdr->e_shoff);
 	elf64.phdr = (Elf64_Phdr *)(file->ptr_file + elf64.ehdr->e_phoff);
-	elf64.strtable = (void *)(file->ptr_file + elf64.shdr[elf64.ehdr->e_shstrndx].sh_offset);
 	return (elf64);
 }

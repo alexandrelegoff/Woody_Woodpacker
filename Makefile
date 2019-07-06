@@ -1,14 +1,14 @@
 NAME	=		woody_woodpacker
 
 CC 		=		gcc
-CFLAGS	= 		-g3 -Wall -Werror -Wextra
+CFLAGS	= 		-Wall -Werror -Wextra
 INC		=		-I ./inc -I libft/
 
 SRC_DIR =		src/
 OBJ_DIR =		obj/
 LIB_DIR =		libft/
 
-SRC		=		main.c woody.c load_file.c error.c elf64.c swap_bits.c write_file.c find.c
+SRC		=		main.c woody.c load_file.c error.c elf64.c swap_bits.c write_file.c find.c key.c
 OBJ		=		$(addprefix $(OBJ_DIR),$(SRC:.c=.o))
 LIB		=		libft/libft.a
 
