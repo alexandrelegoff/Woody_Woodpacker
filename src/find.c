@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 18:53:55 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/04 23:35:03 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/06 13:57:50 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ Elf64_Phdr		*find_gap(t_file *file, t_elf64 *elf64, t_woody *woody)
 	else
 		return (NULL);
 	elf64->phdr[i].p_flags |= (PF_X | PF_W);
-	elf64->phdr[i].p_memsz += 42;
-	elf64->phdr[i].p_filesz += 42;
 	woody->gap = gap;
 	woody->text_end = text_end;
 	return (&elf64->phdr[i]);

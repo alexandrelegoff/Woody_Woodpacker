@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 21:24:54 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/03 19:49:17 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/06 13:57:19 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int			verify_info(Elf64_Ehdr *header)
 {
-	if (header->e_ident[EI_MAG0] != ELFMAG0)
-		return (ret_error(MAGIC));
-	else if (header->e_ident[EI_MAG1] != ELFMAG1)
-		return (ret_error(MAGIC));
-	else if (header->e_ident[EI_MAG2] != ELFMAG2)
-		return (ret_error(MAGIC));
-	else if (header->e_ident[EI_MAG3] != ELFMAG3)
+	if (strncmp((void *)header, ELFMAG, SELFMAG))
 		return (ret_error(MAGIC));
 	else if (header->e_ident[EI_CLASS] != ELFCLASS64)
 		return (ret_error(ARCH));
+	else if (header->e_type != ET_EXEC)
+		return (ret_error(EXEC));
+	else if (header->e_shentsize != sizeof(Elf64_Shdr))
+		return (ret_error(UNKWN));
+	else if (header->e_phentsize != sizeof(Elf64_Phdr))
+		return (ret_error(UNKWN));
 	return (EXIT_SUCCESS);
 }
 

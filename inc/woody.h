@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/30 20:07:29 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/07/04 23:34:58 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/07/06 13:43:26 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define MAGIC "Invalid file: The file is not a valid ELF file."
 # define ARCH "Invalid file: The file is not in 64 bits"
 # define UNKWN "Unknown error"
+# define EXEC "The file is not a valid executable file"
 # define NO_DATA "Couldn't find data section"
 # define NO_TEXT "Couldn't find text section"
 # define NO_SPACE "Not enough space in the executable"
