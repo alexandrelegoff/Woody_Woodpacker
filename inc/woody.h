@@ -22,8 +22,8 @@
 # include <sys/stat.h>
 # include <elf.h>
 
-# define LOAD "src/payload"
-# define FILE "woody"
+# define LOAD "asm/decrypt"
+# define FILEN "woody"
 # define USAGE "usage: ./woody_woodpacker <filename>\n"
 # define OPEN "Couldn't open the file"
 # define STAT "Stat failed"
@@ -37,7 +37,6 @@
 # define NO_SPACE "Not enough space in the executable"
 
 # define SIZE_HEADER sizeof(Elf64_Ehdr)
-
 
 typedef struct		s_file
 {
@@ -60,20 +59,24 @@ typedef struct		s_woody
 	int				gap;
 	int				text_end;
 	uint64_t		key;
+	void			*ptr;
 	Elf64_Phdr		*text_segment;
-	Elf64_Shdr		*text_section;
+	Elf64_Shdr		*text_section_loader;
+	Elf64_Shdr		*text_section_file;
 	Elf64_Shdr		*data_section;
 }					t_woody;
 
 int					woody_woodpacker(char *file);
 int					load_file(char *filename, void **ptr, off_t *size);
-t_elf64				init_elf64(t_file *file);
+t_elf64				init_elf64(t_woody *woody);
 int					verify_info(Elf64_Ehdr *header);
 uint64_t			generate_key(void);
 int					ret_error(char *message);
-int					write_file(t_file *file, t_elf64 *elf64);
+int					write_file(t_file *file, t_elf64 *elf64, t_woody *woody);
 Elf64_Phdr			*find_gap(t_file *file, t_elf64 *elf64, t_woody *woody);
 Elf64_Shdr			*find_section(void *data, char *name);
 int					find_mem_substitution(void *ptr, int len, long pat, unsigned long val);
+void				encrypt_text_section(char *ptr, Elf64_Addr size, uint64_t key);
+void				encrypt_text_helper(t_woody *woody);
 
 #endif

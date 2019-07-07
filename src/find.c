@@ -27,7 +27,7 @@ Elf64_Shdr		*find_section(void *data, char *name)
 	sh_strtab_p = data + sh_strtab->sh_offset;
 	while (++i < ehdr->e_shnum)
 	{
-		if (!ft_strcmp(sh_strtab_p + shdr[i].sh_name, name))
+		if (!strcmp(sh_strtab_p + shdr[i].sh_name, name))
 			return (&shdr[i]);
 	}
 	return (NULL);
@@ -62,6 +62,7 @@ int				find_mem_substitution(void *ptr, int len, long pat, unsigned long val)
 		r = v ^ pat;
 		if (r == 0)
 		{
+			printf("%lx\n", pat);
 			*((long *)(p + i)) = val;
 			return (0);
 		}

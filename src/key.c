@@ -14,13 +14,14 @@
 
 uint64_t		generate_key(void)
 {
-	int			fd;
 	uint64_t	key;
+	int		fd;
 
 	if ((fd = open("/dev/urandom", O_RDONLY)) == -1)
 		return (ret_error(OPEN));
-	if ((read(fd, &key, sizeof(key))) == -1)
+	if ((read(fd, &key, sizeof(key)) != sizeof(key)))
 		return (ret_error(UNKWN));
-	printf("Pseudo-Random Generated key: = %llx\n", key);
+	printf("Pseudo-Random Generated key: = %lx\n", key);
+	close(fd);
 	return (key);
 }

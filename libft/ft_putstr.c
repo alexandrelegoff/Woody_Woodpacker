@@ -14,13 +14,5 @@
 
 int	ft_putstr(const char *str)
 {
-	int i;
-
-	i = 0;
-	if (str == NULL)
-	{
-		ft_putstr("(null)");
-		return (5);
-	}
 	return (write(1, str, ft_strlen(str)));
 }

@@ -27,15 +27,15 @@ int			verify_info(Elf64_Ehdr *header)
 	return (EXIT_SUCCESS);
 }
 
-t_elf64		init_elf64(t_file *file)
+t_elf64		init_elf64(t_woody *woody)
 {
 	t_elf64		elf64;
 
-	elf64.ehdr = (Elf64_Ehdr *)file->ptr_file;
+	elf64.ehdr = (Elf64_Ehdr *)woody->ptr;
 	if (verify_info(elf64.ehdr))
 		exit (1);
 	elf64.entry_p = elf64.ehdr->e_entry;
-	elf64.shdr = (Elf64_Shdr *)(file->ptr_file + elf64.ehdr->e_shoff);
-	elf64.phdr = (Elf64_Phdr *)(file->ptr_file + elf64.ehdr->e_phoff);
+	elf64.shdr = (Elf64_Shdr *)(woody->ptr + elf64.ehdr->e_shoff);
+	elf64.phdr = (Elf64_Phdr *)(woody->ptr + elf64.ehdr->e_phoff);
 	return (elf64);
 }

@@ -16,16 +16,19 @@ static int		launch_process(t_elf64 *elf64, t_file *file, t_woody *woody)
 {
 	if ((woody->text_segment = find_gap(file, elf64, woody)) == NULL)
 		return (ret_error(NO_SPACE));
-	if ((woody->text_section = find_section(file->ptr_loader, ".text")) == NULL)
+	if ((woody->text_section_file = find_section(file->ptr_file, ".text")) == NULL)
 		return (ret_error(NO_TEXT));
-	if (woody->gap < (int)woody->text_section->sh_size)
+	if ((woody->text_section_loader = find_section(file->ptr_loader, ".text")) == NULL)
+		return (ret_error(NO_TEXT));
+	if (woody->gap < (int)woody->text_section_loader->sh_size)
 		return (ret_error(NO_SPACE));
-	memmove(file->ptr_file + woody->text_end,
-	file->ptr_loader + woody->text_section->sh_offset, woody->text_section->sh_size);
+	memmove(woody->ptr + woody->text_end,
+	file->ptr_loader + woody->text_section_loader->sh_offset, woody->text_section_loader->sh_size);
 	elf64->ehdr->e_entry = (Elf64_Addr)woody->text_segment->p_vaddr +
 	woody->text_end;
-	if ((find_mem_substitution(file->ptr_file + woody->text_end,
-	woody->text_section->sh_size, 0x11111111, elf64->entry_p)))
+	encrypt_text_helper(woody);
+	if ((find_mem_substitution(woody->ptr + woody->text_end,
+	woody->text_section_loader->sh_size, 0x1111111111111111, elf64->entry_p)))
 		return (ret_error(UNKWN));
 	return (EXIT_SUCCESS);
 }
@@ -40,11 +43,13 @@ int				woody_woodpacker(char *filename)
 	if (((load_file(filename, &file.ptr_file, &file.size_file)) == EXIT_FAILURE)
 	|| (load_file(LOAD, &file.ptr_loader, &file.size_loader)) == EXIT_FAILURE)
 		exit(1);
-	elf64 = init_elf64(&file);
+	woody.ptr = malloc(sizeof(char) * (file.size_file + file.size_loader));
+	memcpy(woody.ptr, file.ptr_file, file.size_file);
+	elf64 = init_elf64(&woody);
 	if ((verify_info(elf64.ehdr)) == EXIT_FAILURE || ((woody.key = generate_key()) == EXIT_FAILURE))
 		return (EXIT_FAILURE);
 	if ((status = launch_process(&elf64, &file, &woody)) == EXIT_SUCCESS)
-		write_file(&file, &elf64);
+		write_file(&file, &elf64, &woody);
 	munmap(file.ptr_file, file.size_file);
 	munmap(file.ptr_loader, file.size_loader);
 	return (status);
