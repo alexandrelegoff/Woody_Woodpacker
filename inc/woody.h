@@ -78,5 +78,6 @@ Elf64_Shdr			*find_section(void *data, char *name);
 int					find_mem_substitution(void *ptr, int len, long pat, unsigned long val);
 void				encrypt_text_section(char *ptr, Elf64_Addr size, uint64_t key);
 void				encrypt_text_helper(t_woody *woody);
+void				decrypt_text_helper(t_woody *woody, t_elf64 *elf64);
 
 #endif

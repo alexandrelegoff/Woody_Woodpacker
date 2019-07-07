@@ -27,9 +27,7 @@ static int		launch_process(t_elf64 *elf64, t_file *file, t_woody *woody)
 	elf64->ehdr->e_entry = (Elf64_Addr)woody->text_segment->p_vaddr +
 	woody->text_end;
 	encrypt_text_helper(woody);
-	if ((find_mem_substitution(woody->ptr + woody->text_end,
-	woody->text_section_loader->sh_size, 0x1111111111111111, elf64->entry_p)))
-		return (ret_error(UNKWN));
+	decrypt_text_helper(woody, elf64);
 	return (EXIT_SUCCESS);
 }
 
