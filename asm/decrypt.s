@@ -8,6 +8,7 @@ _start:
 	push r8
 	push r9
 	push r10
+
 _initialize:
 	xor rcx,rcx
 	mov rax,[rel addr]
@@ -21,7 +22,7 @@ _decrypt:
 	inc rax
 	inc rcx
 	cmp rcx,r10
-	jl _decrypt
+	jne _decrypt
 
 _print:
 	mov rax,1

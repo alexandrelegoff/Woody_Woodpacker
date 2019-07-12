@@ -59,7 +59,6 @@ typedef struct		s_woody
 	int				gap;
 	int				text_end;
 	uint64_t		key;
-	void			*ptr;
 	Elf64_Phdr		*text_segment;
 	Elf64_Shdr		*text_section_loader;
 	Elf64_Shdr		*text_section_file;
@@ -68,17 +67,17 @@ typedef struct		s_woody
 
 int					woody_woodpacker(char *file);
 int					load_file(char *filename, void **ptr, off_t *size);
-t_elf64				init_elf64(t_woody *woody);
+t_elf64				init_elf64(t_file *file);
 int					verify_info(Elf64_Ehdr *header);
 uint64_t			generate_key(void);
 int					ret_error(char *message);
-int					write_file(t_file *file, t_elf64 *elf64, t_woody *woody);
+int					write_file(t_file *file);
 Elf64_Phdr			*find_gap(t_file *file, t_elf64 *elf64, t_woody *woody);
 Elf64_Shdr			*find_section(void *data, char *name);
 int					find_mem_substitution(void *ptr, int len, long pat, unsigned long val);
 void				encrypt_text_section(char *ptr, Elf64_Addr size, uint64_t key);
-void				encrypt_text_helper(t_woody *woody);
-void				decrypt_text_helper(t_woody *woody, t_elf64 *elf64);
+void				encrypt_text_helper(t_woody *woody, t_file *file);
+void				decrypt_text_helper(t_file *file, t_elf64 *elf64, t_woody *woody);
 uint64_t			swap_64(uint64_t val);
 
 #endif

@@ -23,7 +23,7 @@ int			load_file(char *filename, void **ptr, off_t *size)
 		return (ret_error(STAT));
 	*size = statbuf.st_size;
 	if ((*ptr = mmap(0, *size,
-	PROT_READ | PROT_WRITE | PROT_EXEC, MAP_SHARED, fd, 0)) == MAP_FAILED)
+	PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 		return (ret_error(MMAP));
 	close(fd);
 	return (EXIT_SUCCESS);
