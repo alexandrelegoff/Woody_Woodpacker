@@ -16,6 +16,7 @@ static int		launch_process(t_elf64 *elf64, t_file *file, t_woody *woody)
 {
 	if ((woody->text_segment = find_gap(file, elf64, woody)) == NULL)
 		return (ret_error(NO_SPACE));
+	printf("text segment size = %lx\n", woody->text_segment->p_filesz);
 	woody->text_segment->p_filesz += file->size_loader;
 	woody->text_segment->p_memsz += file->size_loader;
 	if ((woody->text_section_file = find_section(file->ptr_file, ".text")) == NULL)

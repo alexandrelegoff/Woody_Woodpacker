@@ -21,7 +21,7 @@ uint64_t		generate_key(void)
 		return (ret_error(OPEN));
 	if ((read(fd, &key, sizeof(key)) != sizeof(key)))
 		return (ret_error(UNKWN));
-	printf("Pseudo-Random Generated key: = %lx\n", key);
+	printf("Pseudo-Random Generated key: = 0x%lx\n", key);
 	close(fd);
 	return (key);
 }

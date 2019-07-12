@@ -64,7 +64,6 @@ int				find_mem_substitution(void *ptr, int len, long pat, unsigned long val)
 		r = v ^ pat;
 		if (r == 0)
 		{
-			printf("%lx\n", pat);
 			*((long *)(p + i)) = val;
 			return (0);
 		}

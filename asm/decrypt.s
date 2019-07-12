@@ -5,12 +5,14 @@ _start:
 	push rdi
 	push rsi
 	push rdx
-
+	push r8
+	push r9
+	push r10
 _initialize:
 	xor rcx,rcx
 	mov rax,[rel addr]
 	mov r9,[rel key]
-	
+	mov r10,[rel size]
 	
 _decrypt:
 	mov r8,[rax]
@@ -18,7 +20,7 @@ _decrypt:
 	mov qword [rax], r8
 	inc rax
 	inc rcx
-	cmp rcx,370
+	cmp rcx,r10
 	jl _decrypt
 
 _print:
@@ -29,6 +31,9 @@ _print:
 	syscall
 
 _end:
+	pop r10
+	pop r9
+	pop r8
 	pop rdx
 	pop rsi
 	pop rdi
