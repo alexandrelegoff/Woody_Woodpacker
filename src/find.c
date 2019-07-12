@@ -42,7 +42,9 @@ static int		find_index_segment_text(t_elf64 *elf64)
 	{
 		if (elf64->phdr[i].p_type == PT_LOAD &&
 		elf64->phdr[i].p_flags & (PF_X))
+		{
 			return (i);
+		}
 	}
 	return (-1);
 }

@@ -16,6 +16,8 @@ static int		launch_process(t_elf64 *elf64, t_file *file, t_woody *woody)
 {
 	if ((woody->text_segment = find_gap(file, elf64, woody)) == NULL)
 		return (ret_error(NO_SPACE));
+	woody->text_segment->p_filesz += file->size_loader;
+	woody->text_segment->p_memsz += file->size_loader;
 	if ((woody->text_section_file = find_section(file->ptr_file, ".text")) == NULL)
 		return (ret_error(NO_TEXT));
 	if ((woody->text_section_loader = find_section(file->ptr_loader, ".text")) == NULL)
@@ -24,6 +26,7 @@ static int		launch_process(t_elf64 *elf64, t_file *file, t_woody *woody)
 		return (ret_error(NO_SPACE));
 	memmove(woody->ptr + woody->text_end,
 	file->ptr_loader + woody->text_section_loader->sh_offset, woody->text_section_loader->sh_size);
+	woody->text_section_file->sh_flags |= (SHF_WRITE | SHF_ALLOC);
 	elf64->ehdr->e_entry = (Elf64_Addr)woody->text_segment->p_vaddr +
 	woody->text_end;
 	encrypt_text_helper(woody);

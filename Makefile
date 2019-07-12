@@ -23,6 +23,7 @@ OBJ_ASM		=		$(addprefix $(OBJ_DIR),$(SRC_ASM:.s=.o))
 all: $(WOODY) $(DECRYPT)
 
 $(DECRYPT): $(ASM_DIR)decrypt.s
+	@echo "Compiling decrypt"
 	@$(ASM) $(ASMFLAGS) $^
 	@ld -o $(ASM_DIR)$@ $(ASM_DIR)decrypt.o
 
